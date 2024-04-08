@@ -14,9 +14,10 @@ public:
     bool checkValidString(string s) {
         if(s.length() >= 1 && s.length() <= 100){
        
-        if(s[0] == ')' || s[0] == '*' && s[1] != ')'){
+        if(s[0] == ')' || (s[0] == '*' && (s[1] != ')' || s[1] != '*'))){
             return false;
         }
+        if (s[s.length() -1] == '(') return false;
         for(int i=0; i<s.length(); i++){
             if(s[i] == '(') lMin++;
             else if(s[i] == '*') rsrv++;
@@ -24,6 +25,7 @@ public:
             if(rsrv%2 == 0 && rMin > lMin) return false;
         }
         if(rsrv%2 == 0 && rMin != lMin) return false;
+        // if (rMin == lMin && rsrv%2 != 0) return false;
         return true;
         }
         return false;

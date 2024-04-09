@@ -12,7 +12,7 @@ int main(){
             if(j<=i)
             cout << "*";
             else
-            cout << " ";
+            cout << "@";
         }
         cout << endl;
     }

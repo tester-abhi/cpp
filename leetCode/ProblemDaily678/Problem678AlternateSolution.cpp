@@ -1,31 +1,57 @@
 #include<iostream>
 #include<string.h>
-
-using namespace std;
+#include<stack>
 
 class Solution{
 	public:
 		int op = 0, cp = 0, rsrv = 0;
 		void printDataMembers(){
-			cout << "The data members are: " << endl;
-			cout << "op: " << op << " cp: " << cp << " rsrv: " << rsrv << endl;
+			std::cout << "The data members are: " << std::endl;
+			std::cout << "op: " << op << " cp: " << cp << " rsrv: " << rsrv << std::endl;
 		}
-		bool isValidString(string s){
-			if(s.length() > 0 && s.length() <= 100){
-
+		bool isValidString(std::string s){
+			if(s.length() < 0 && s.length() > 100){
+				return false;
+			}else{
+				std::stack<int> leftStack, starStack;
+				for(int i = 0; i < s.length(); ++i){
+					if(s[i] == '('){
+						leftStack.push(i);
+					}else if (s[i] == '*'){
+						starStack.push(i);
+					}else{
+						if(!leftStack.empty()){
+							leftStack.pop();
+						}else if (!starStack.empty()){
+							starStack.pop();
+						}else{
+							return false;
+						}
+					}
+				}
+				while(!leftStack.empty() && !starStack.empty()){
+					if (leftStack.top() > starStack.top()){
+						return false;
+					}
+					leftStack.pop();
+					starStack.pop();
+				}
+				return leftStack.empty();
 			}
-			return false;
+			
+			
+			// return false;
 		}
 };
 
 int main(){
 	Solution s;
-	string sampleString = "()";
+	std::string sampleString = "((((()(()()()()((((()()((())))))(())()())(((())())())))))))(((((()))))()))(()((()()))()()";
 	bool output = s.isValidString(sampleString);
 	if(output){
-		cout << sampleString << " is a valid string" << endl;
+		std::cout << sampleString << " is a valid string" << std::endl;
 	}else{
-		cout << sampleString << " is not a valid string" << endl;
+		std::cout << sampleString << " is not a valid string" << std::endl;
 	}
 	return 0;
 }

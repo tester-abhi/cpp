@@ -15,19 +15,19 @@ class Solution{
                 os.push(i);
             }else if(s[i] == ')'){
                 // ([)]
-                if(!op.empty() && s[i-1] != '{' && s[i-1] != '['){
+                if(!op.empty() && s[i-1] != '{' && s[i-1] != '[' && s[i-1] != ')'){
                     op.pop();
                 }else{
                     return false;
                 }
             }else if(s[i] == '}'){
-                if(!ob.empty()  && s[i-1] != '(' && s[i-1] != '['){
+                if(!ob.empty()  && s[i-1] != '(' && s[i-1] != '['&& s[i-1] != '}'){
                     ob.pop();
                 }else{
                     return false;
                 }
             }else if(s[i] == ']'){
-                if(!os.empty()  && s[i-1] != '(' && s[i-1] != '{'){
+                if(!os.empty()  && s[i-1] != '(' && s[i-1] != '{'&& s[i-1] != ']'){
                     os.pop();
                 }else{
                     return false;
@@ -43,7 +43,7 @@ class Solution{
 
 int main(){
     Solution s;
-    std::string sampleString = "([)]";
+    std::string sampleString = "[([]])";
     if(s.isValidString(sampleString)){
         std::cout << sampleString << " is a valid string" << std::endl;
     }else{
